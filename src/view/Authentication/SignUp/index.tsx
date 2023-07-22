@@ -1,38 +1,103 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  TextField,
+} from "@mui/material";
 
 const SignUp = () => {
-  const [requestResult, setRequestResult] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userPassword, setUserPassword] = useState<string>("");
+  const [userPasswordCheck, setUserPasswordCheck] = useState<string>("");
+  const [userNickname, setUserNickname] = useState<string>("");
+  const [userPhoneNumber, setUserPhoneNumber] = useState<string>("");
+  const [userAddress, setUserAddress] = useState<string>("");
+  const [userAddressDetail, setUserAddressDetail] = useState<string>("");
   const signUpHandler = () => {
     const data = {
-      userEMail: "asd@naver.com",
-      userPassword: "qwer1234",
-      userNickname: "John doe",
-      userPhoneNumber: "010-1111-9999",
-      userAddress: "대한민국 서울시",
-      userAddressDetail: "서초구",
+      userEmail,
+      userPassword,
+      userPasswordCheck,
+      userNickname,
+      userPhoneNumber,
+      userAddress,
+      userAddressDetail,
     };
 
     axios
       .post("http://localhost:4000/api/auth/signUp", data)
       .then((response) => {
-        setRequestResult("success!!");
+
       })
-      .catch((error) => {
-        setRequestResult("Failed");
-      });
+      .catch((error) => {});
   };
   return (
-    <div>
-      <h3>{requestResult}</h3>
-      <button
-        onClick={() => {
-          signUpHandler();
-        }}
-      >
-        회원가입
-      </button>
-    </div>
+    <Card sx={{ minWidth: 275, maxWidth: "50vw" }}>
+      <CardContent>
+        <Box>
+          <TextField
+            fullWidth
+            label="이메일 주소"
+            type="email"
+            variant="standard"
+            onChange={(e) => setUserEmail(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            type="password"
+            label="비밀번호"
+            variant="standard"
+            onChange={(e) => setUserPassword(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            type="password"
+            label="비밀번호 확인"
+            variant="standard"
+            onChange={(e) => setUserPasswordCheck(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="닉네임"
+            variant="standard"
+            onChange={(e) => setUserNickname(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="휴대폰 번호"
+            variant="standard"
+            onChange={(e) => setUserPhoneNumber(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="주소"
+            variant="standard"
+            onChange={(e) => setUserAddress(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            label="상세주소"
+            variant="standard"
+            onChange={(e) => setUserAddressDetail(e.target.value)}
+          />
+        </Box>
+      </CardContent>
+      <CardActions>
+        <Button
+          fullWidth
+          variant="contained"
+          onClick={() => {
+            signUpHandler();
+          }}
+        >
+          회원가입
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 

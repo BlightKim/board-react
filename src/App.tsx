@@ -3,16 +3,10 @@ import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
 import SignUp from "./view/Authentication/SignUp";
+import Authentication from "./view/Authentication";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <SignUp />
-      </header>
-    </div>
-  );
+  return <Authentication />;
 }
 
 export default App;
