@@ -7,29 +7,34 @@ import { useMemberStore } from "../../../stores";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
-import * as timers from "timers";
+
 
 const MainLayout = () => {
   const [boardResponse, setBoardResponse] = useState<string>("");
   const [cookies] = useCookies();
   const { member } = useMemberStore();
-  const getBoard = async (token: string) => {
-    const response = await axios
-      .get("http://localhost:4000/api/board", {
-          headers: {
-              Authorization:
-          }
-      })
-      .then((response) => {
-          setBoardResponse(response.data);
-      })
-      .catch((error) => null);
+  const getBoard = async (accessToken: string) => {
+    const requestOption = {
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+    await axios.get('http://localhost:4000/api/board/', requestOption)
+        .then((response) => {
+            setBoardResponse(response.data);
+            console.log(!!boardResponse)
+        })
+        .catch((error) => console.log(error));
   };
   useEffect(() => {
-    const token = cookies.token;
-    if (token) getBoard(token);
-  }, [member]);
+    const accessToken = cookies.accessToken;
+    if (accessToken) {
+      getBoard(accessToken);
+    } else {
+        setBoardResponse('');
+    }
+  }, [cookies.accessToken]);
   return (
     <>
       <Navigation />
