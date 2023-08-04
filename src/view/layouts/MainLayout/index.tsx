@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../../navigation";
-import { Box } from "@mui/material";
+import {Box, Container, Typography} from "@mui/material";
 import Authentication from "../../Authentication";
 import BoardMain from "../BoardMain";
 import { useMemberStore } from "../../../stores";
@@ -38,7 +38,27 @@ const MainLayout = () => {
   return (
     <>
       <Navigation />
-        {boardResponse ? (<BoardMain />) : (<Authentication />)}
+        <main>
+            <Box
+                sx={{
+                    bgcolor: 'background.paper',
+                    pt: 8,
+                    pb: 6,
+
+                }}>
+                <Container maxWidth="sm">
+                    <Typography
+                        component="h1"
+                        variant="h2"
+                        align="center"
+                        color="text.primary"
+                        gutterBottom
+                        >
+                        Album layout
+                    </Typography>
+                </Container>
+            </Box>
+        </main>
     </>
   );
 };
